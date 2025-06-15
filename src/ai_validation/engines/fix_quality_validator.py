@@ -83,7 +83,7 @@ class FixQualityValidator:
             
         except Exception as e:
             self.logger.error(f"Fix quality validation failed: {e}")
-            return self._create_fallback_analysis(str(e))
+            raise RuntimeError(f"LLM fix quality analysis failed: {e}. No fallback available.")
     
     async def _analyze_fix_quality(self, model, fix_suggestion: str, 
                                  vulnerability_context: str, original_code: str) -> FixQualityScore:
@@ -318,25 +318,6 @@ Focus on the areas with lowest scores and provide concrete code improvements."""
         
         return f"{quality_level}: {assessment}"
     
-    def _create_fallback_analysis(self, error_message: str) -> FixQualityAnalysis:
-        """Create fallback analysis when AI validation fails."""
-        return FixQualityAnalysis(
-            security_effectiveness_score=50.0,
-            implementation_quality_score=50.0,
-            completeness_score=50.0,
-            maintainability_score=50.0,
-            performance_impact_score=50.0,
-            overall_quality_score=50.0,
-            detailed_analysis=f"ANALYSIS_FAILED: Unable to perform AI validation due to: {error_message}. Manual review recommended.",
-            improvement_recommendations=[
-                "Manual security review required due to AI analysis failure",
-                "Verify fix addresses all attack vectors",
-                "Test fix thoroughly in development environment",
-                "Consider peer review by security expert"
-            ],
-            analysis_confidence=0.1,  # Low confidence for fallback
-            validation_time_seconds=0.0
-        )
     
     def _load_quality_prompts(self) -> Dict[str, str]:
         """Load prompts for fix quality assessment."""

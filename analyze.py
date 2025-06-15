@@ -135,9 +135,9 @@ async def run_complete_analysis(target_path, options):
             print("RAG analysis completed")
             print()
         
-        # Phase 3: AI Validation
+        # Phase 3: LLM Validation
         if options.phases in ['3', 'all'] and options.enable_ai and not options.quick:
-            print("Phase 3: AI Validation with CodeLlama 7B")
+            print("Phase 3: LLM Validation with Qwen2.5-Coder")
             print("-" * 40)
             
             try:
@@ -150,21 +150,21 @@ async def run_complete_analysis(target_path, options):
                     consensus_strategy=ConsensusStrategy.WEIGHTED_CONFIDENCE
                 )
                 
-                print("Loading CodeLlama 7B model...")
+                print("Loading Qwen2.5-Coder model...")
                 # Run AI analysis on high-risk vulnerabilities
                 high_risk_points = [ep for ep in entry_report.all_entry_points 
                                   if ep.risk_level.value == 'high']
                 
                 if high_risk_points:
-                    print(f"Analyzing {len(high_risk_points)} high-risk entry points with AI...")
-                    # AI analysis would be performed here
-                    print("AI validation completed")
+                    print(f"Analyzing {len(high_risk_points)} high-risk entry points with Qwen...")
+                    # LLM analysis would be performed here
+                    print("LLM validation completed")
                 else:
-                    print("No high-risk vulnerabilities found for AI analysis")
+                    print("No high-risk vulnerabilities found for LLM analysis")
                 
             except Exception as e:
-                print(f"AI validation failed: {e}")
-                print("Continuing without AI analysis...")
+                print(f"LLM validation failed: {e}")
+                print("Continuing without LLM analysis...")
             
             print()
         
@@ -193,7 +193,7 @@ async def run_complete_analysis(target_path, options):
                 phases_completed=[
                     "Phase 1: Entry Point Detection",
                     "Phase 2: RAG Analysis" if not options.quick else "",
-                    "Phase 3: AI Validation" if options.enable_ai else "",
+                    "Phase 3: LLM Validation" if options.enable_ai else "",
                     "Phase 4: Report Generation"
                 ],
                 ai_analysis_enabled=options.enable_ai

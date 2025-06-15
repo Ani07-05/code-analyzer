@@ -13,10 +13,10 @@ import torch
 
 
 class ModelSize(Enum):
-    """Available model sizes."""
-    SMALL = "7b"   # CodeLlama-7B
-    MEDIUM = "13b" # CodeLlama-13B  
-    LARGE = "34b"  # CodeLlama-34B
+    """Available model sizes for Qwen2.5-Coder."""
+    SMALL = "1.5b"   # Qwen2.5-Coder-1.5B
+    MEDIUM = "7b"    # Qwen2.5-Coder-7B  
+    LARGE = "32b"    # Qwen2.5-Coder-32B
 
 
 class QuantizationType(Enum):
@@ -42,11 +42,11 @@ class ModelResponse:
 
 
 @dataclass 
-class CodeLlamaModel:
+class QwenModel:
     """
-    CodeLlama model wrapper with generation capabilities.
+    Qwen2.5-Coder model wrapper with generation capabilities.
     
-    Provides a unified interface for interacting with CodeLlama models
+    Provides a unified interface for interacting with Qwen2.5-Coder models
     regardless of size or quantization configuration.
     """
     size: ModelSize
@@ -317,7 +317,7 @@ class CodeLlamaModel:
             torch.cuda.empty_cache()
     
     def __repr__(self) -> str:
-        return (f"CodeLlamaModel(size={self.size.value}, "
+        return (f"QwenModel(size={self.size.value}, "
                 f"quantization={self.quantization.value}, "
                 f"device={self.device}, "
                 f"memory={self.memory_usage_mb:.1f}MB)")

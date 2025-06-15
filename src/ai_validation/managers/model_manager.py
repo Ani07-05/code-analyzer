@@ -16,7 +16,7 @@ import torch
 import psutil
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 
-from ..models.ai_models import CodeLlamaModel, ModelSize, QuantizationType, ModelResponse
+from ..models.ai_models import QwenModel, ModelSize, QuantizationType, ModelResponse
 
 
 class ModelLoadingError(Exception):
@@ -41,7 +41,7 @@ class SystemResources:
 
 class ModelManager:
     """
-    Central controller for CodeLlama models with intelligent resource management.
+    Central controller for Qwen2.5-Coder models with intelligent resource management.
     
     Features:
     - Lazy loading with memory optimization
@@ -65,7 +65,7 @@ class ModelManager:
         self.gpu_memory_limit = gpu_memory_limit
         self.enable_quantization = enable_quantization
         self.default_model_size = default_model_size
-        self.loaded_models: Dict[ModelSize, CodeLlamaModel] = {}
+        self.loaded_models: Dict[ModelSize, QwenModel] = {}
         
         # Setup logging
         self.logger = logging.getLogger(__name__)
@@ -167,7 +167,7 @@ class ModelManager:
     
     async def get_model(self, 
                        size: ModelSize = None,
-                       task_complexity: str = "medium") -> CodeLlamaModel:
+                       task_complexity: str = "medium") -> QwenModel:
         """
         Get model with intelligent selection based on task complexity and resources.
         
@@ -295,9 +295,15 @@ class ModelManager:
         available_gb = psutil.virtual_memory().available / (1024**3)
         return available_gb >= required_gb
     
-    async def _load_model(self, size: ModelSize) -> CodeLlamaModel:
+    async def _load_model(self, size: ModelSize) -> QwenModel:
         """Load model with quantization and optimization."""
-        model_path = Path(f"models/codellama-{size.value}")
+        # Use Qwen model names instead of paths - loaded directly from HuggingFace
+        model_names = {
+            ModelSize.SMALL: "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+            ModelSize.MEDIUM: "Qwen/Qwen2.5-Coder-7B-Instruct", 
+            ModelSize.LARGE: "Qwen/Qwen2.5-Coder-32B-Instruct"
+        }
+        model_name = model_names[size]
         
         if not self._check_model_exists(size):
             raise FileNotFoundError(f"Model not found or incomplete: {model_path}")
@@ -372,11 +378,11 @@ class ModelManager:
             
             self.logger.info(f"Model loaded in {load_time:.1f}s, using {memory_usage:.1f}MB")
             
-            # Create CodeLlamaModel wrapper
-            return CodeLlamaModel(
+            # Create QwenModel wrapper
+            return QwenModel(
                 size=size,
                 quantization=quant_type,
-                model_path=str(model_path),
+                model_path=model_name,
                 device=self.device,
                 memory_usage_mb=memory_usage,
                 tokenizer=tokenizer,

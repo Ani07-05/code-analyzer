@@ -29,7 +29,7 @@ class SecurityConfig:
 @dataclass
 class ModelConfig:
     """AI model configuration."""
-    model_name: str = "codellama-7b"
+    model_name: str = "qwen2.5-coder-1.5b"
     quantization: str = "4bit"
     max_tokens: int = 2048
     temperature: float = 0.1
@@ -100,7 +100,7 @@ class ConfigManager:
                 "consensus_strategy": "weighted_confidence"
             },
             "models": {
-                "model_name": "codellama-7b",
+                "model_name": "qwen2.5-coder-1.5b",
                 "quantization": "4bit",
                 "max_tokens": 2048,
                 "temperature": 0.1

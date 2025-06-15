@@ -99,7 +99,7 @@ class ConsensusEngine:
             
         except Exception as e:
             self.logger.error(f"Consensus failed: {e}")
-            return self._create_fallback_consensus(str(e))
+            raise RuntimeError(f"LLM consensus analysis failed: {e}. No fallback available.")
     
     async def _get_available_models(self) -> List[ModelSize]:
         """Determine which models are available for consensus."""
@@ -374,16 +374,3 @@ Your analysis:"""
         
         return "\n".join(reasoning_parts)
     
-    def _create_fallback_consensus(self, error_message: str) -> ConsensusResult:
-        """Create fallback consensus when engine fails."""
-        return ConsensusResult(
-            final_decision=False,  # Conservative default
-            consensus_confidence=0.1,
-            model_votes=[],
-            strategy_used=ConsensusStrategy.WEIGHTED_CONFIDENCE,
-            agreement_ratio=0.0,
-            uncertainty_flag=True,
-            detailed_reasoning=f"CONSENSUS_FAILED: {error_message}. Manual review required.",
-            consensus_time_seconds=0.0,
-            models_consulted=[]
-        )

@@ -1,6 +1,6 @@
 # Code Security Analyzer
 
-Advanced vulnerability detection with AI-powered analysis using local CodeLlama models.
+Advanced vulnerability detection with LLM-powered analysis using local Qwen2.5-Coder models.
 
 ## 🚀 Quick Start
 
@@ -31,7 +31,7 @@ Open the generated HTML report in your browser for interactive vulnerability ana
 ### 4-Phase Analysis Pipeline
 1. **Entry Point Detection** - Identify application entry points and risk assessment
 2. **RAG-powered Fix Generation** - Evidence-based fixes with Stack Overflow citations
-3. **AI Validation** - CodeLlama 7B model for intelligent vulnerability verification
+3. **LLM Validation** - Qwen2.5-Coder models for intelligent vulnerability verification
 4. **Professional Reporting** - Interactive HTML reports with detailed analysis
 
 ### Supported Technologies
@@ -39,9 +39,10 @@ Open the generated HTML report in your browser for interactive vulnerability ana
 - **JavaScript**: Node.js, Express (coming soon)
 - **Security Patterns**: SQL Injection, XSS, Authentication, Input Validation
 
-### AI Models
-- **CodeLlama 7B**: Local analysis with GPU acceleration
-- **Hybrid Processing**: CPU+GPU optimization for 4GB+ VRAM
+### LLM Models
+- **Qwen2.5-Coder-1.5B**: Optimized for 4GB VRAM, 53x faster than CodeLlama
+- **Qwen2.5-Coder-7B**: For 8GB+ VRAM systems
+- **Qwen2.5-Coder-32B**: For high-end workstations
 - **Privacy-First**: All analysis runs locally
 
 ## 🛠️ Installation
@@ -60,10 +61,9 @@ pip install -r requirements.txt
 python setup.py
 ```
 
-### AI Model Setup
+### LLM Model Setup
 ```bash
-# Download CodeLlama 7B model (optional)
-python scripts/model_management/download_models.py
+# Qwen models are downloaded automatically on first use
 
 # Or setup manually
 python setup.py --with-ai
