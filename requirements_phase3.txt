@@ -1,0 +1,42 @@
+# Phase 3 AI Validation Layer Dependencies
+
+# Core ML/AI frameworks
+torch>=2.1.0
+transformers>=4.45.0
+accelerate>=0.24.0
+bitsandbytes>=0.41.0
+sentencepiece>=0.1.99
+protobuf>=3.20.0
+
+# HuggingFace ecosystem
+huggingface-hub>=0.17.0
+datasets>=2.14.0
+evaluate>=0.4.0
+peft>=0.6.0
+optimum>=1.13.0
+
+# System monitoring and optimization
+psutil>=5.9.0
+GPUtil>=1.4.0
+pynvml>=11.5.0
+py-cpuinfo>=9.0.0
+
+# Performance and utilities
+tqdm>=4.65.0
+click>=8.0.0
+rich>=13.0.0
+
+# Testing and development
+pytest>=7.0.0
+pytest-asyncio>=0.21.0
+pytest-mock>=3.10.0
+pytest-benchmark>=4.0.0
+
+# Existing dependencies (ensure compatibility)
+chromadb>=0.5.5
+sentence-transformers>=3.3.0
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=5.0.0
+pandas>=2.1.0
+numpy>=1.26.0

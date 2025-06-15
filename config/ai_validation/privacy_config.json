@@ -1,0 +1,18 @@
+{
+  "enforce_local_processing": true,
+  "disable_telemetry": true,
+  "no_external_api_calls": true,
+  "audit_logging": true,
+  "code_never_uploaded": true,
+  "privacy_mode": true,
+  "blocked_domains": [
+    "api.openai.com",
+    "api.anthropic.com",
+    "*.googleapis.com"
+  ],
+  "allowed_local_hosts": [
+    "localhost",
+    "127.0.0.1",
+    "0.0.0.0"
+  ]
+}

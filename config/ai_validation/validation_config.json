@@ -1,0 +1,26 @@
+{
+  "models": {
+    "default_model_size": "13b",
+    "quantization_enabled": true,
+    "quantization_type": "int4",
+    "max_gpu_memory_percent": 85.0,
+    "model_cache_size_gb": 20.0
+  },
+  "validation": {
+    "min_confidence_threshold": 0.7,
+    "require_consensus_for_critical": true,
+    "max_concurrent_validations": 3,
+    "false_positive_reduction_enabled": true
+  },
+  "performance": {
+    "batch_optimization": true,
+    "enable_predictive_loading": true,
+    "model_warming_enabled": true
+  },
+  "privacy": {
+    "enforce_local_processing": true,
+    "disable_telemetry": true,
+    "audit_logging_enabled": true,
+    "privacy_mode": true
+  }
+}

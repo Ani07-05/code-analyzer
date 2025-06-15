@@ -1,0 +1,32 @@
+{
+    "vector_store": {
+        "persist_directory": "./knowledge_base/vector_db",
+        "embedding_model": "all-MiniLM-L6-v2",
+        "enable_caching": true,
+        "similarity_threshold": 0.6,
+        "max_results": 5
+    },
+    "citations": {
+        "mandatory_stackoverflow": true,
+        "minimum_relevance_score": 0.6,
+        "minimum_votes": 1,
+        "prefer_accepted_answers": true,
+        "validation_strict": true
+    },
+    "ai_agent": {
+        "confidence_threshold": 70.0,
+        "risk_thresholds": {
+            "HIGH": 80,
+            "MODERATE": 40,
+            "LOW": 0
+        },
+        "max_code_examples": 3,
+        "max_implementation_steps": 8
+    },
+    "performance": {
+        "embedding_cache_size": 10000,
+        "batch_processing_size": 100,
+        "timeout_seconds": 30
+    }
+}
+

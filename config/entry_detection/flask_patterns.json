@@ -1,0 +1,24 @@
+{
+  "patterns": {
+    "route_decorators": [
+      {
+        "pattern": "@app\\.route\\s*\\(\\s*['\"]([^\"']+)['\"]",
+        "description": "Flask app route decorator",
+        "confidence": 0.9
+      }
+    ],
+    "flask_imports": [
+      {
+        "pattern": "from\\s+flask\\s+import",
+        "description": "Flask import statement",
+        "confidence": 0.95
+      }
+    ]
+  },
+  "config": {
+    "framework_name": "flask",
+    "file_extensions": [
+      ".py"
+    ]
+  }
+}
