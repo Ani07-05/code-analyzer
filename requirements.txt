@@ -1,0 +1,62 @@
+# CLI and File Handling
+click>=8.1.0
+pathlib2>=2.3.7
+watchdog>=3.0.0
+
+# Code Analysis
+ast-tools>=0.1.0
+
+tree-sitter>=0.20.0
+
+# Template Engine and HTML Generation
+jinja2>=3.1.0
+markupsafe>=2.1.0
+
+# HTTP Requests for API calls
+requests>=2.31.0
+urllib3>=2.0.0
+
+# JSON and Data Handling
+pyyaml>=6.0
+jsonschema>=4.17.0
+
+# Database
+db-sqlite3
+
+# Code Highlighting
+pygments>=2.15.0
+
+# Vulnerability Database APIs
+safety>=2.3.0
+pip-audit>=2.6.0
+
+# Logging and Configuration
+colorlog>=6.7.0
+python-dotenv>=1.0.0
+
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-mock>=3.11.0
+
+# Development
+black>=23.0.0
+flake8>=6.0.0
+mypy>=1.5.0
+colorlog>=6.7.0
+
+# RAG System Dependencies
+chromadb==0.4.24
+sentence-transformers==2.7.0
+transformers==4.40.0
+torch==2.7.0
+
+# Data Processing
+lxml==5.2.1
+beautifulsoup4==4.12.3
+requests==2.31.0
+
+# Performance & Utilities
+tqdm==4.66.1
+numpy==1.24.3
+pandas==2.0.3
