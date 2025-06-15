@@ -46,21 +46,33 @@ def install_dependencies():
         print(f"Error installing dependencies: {e}")
         return False
 
-def setup_ai_models():
-    """Setup AI models for analysis"""
-    print("Setting up AI models...")
+def setup_llm_models():
+    """Setup LLM models for analysis"""
+    print("Setting up Qwen2.5-Coder models...")
     
-    models_dir = Path("models")
-    codellama_dir = models_dir / "codellama-7b"
-    
-    if codellama_dir.exists():
-        print("CodeLlama 7B model found ✓")
-        return True
-    else:
-        print("CodeLlama 7B model not found")
-        print("Please download the model manually or run:")
+    try:
+        import torch
+        gpu_available = torch.cuda.is_available()
+        
+        if gpu_available:
+            vram_gb = torch.cuda.get_device_properties(0).total_memory / (1024**3)
+            print(f"Detected GPU with {vram_gb:.1f}GB VRAM")
+            
+            if vram_gb >= 6:
+                print("Hardware suitable for Qwen2.5-Coder-7B ✓")
+            else:
+                print("Hardware optimized for Qwen2.5-Coder-1.5B ✓")
+        else:
+            print("CPU-only mode - Qwen2.5-Coder-1.5B recommended ✓")
+        
+        print("Models will be downloaded automatically on first use")
+        print("To pre-download models, run:")
         print("  python scripts/model_management/download_models.py")
-        return False
+        return True
+        
+    except ImportError:
+        print("PyTorch not installed - models will be available after dependency installation")
+        return True
 
 def check_system_requirements():
     """Check system requirements"""
@@ -94,7 +106,7 @@ def main():
     print_banner()
     
     parser = argparse.ArgumentParser(description="Setup Code Security Analyzer")
-    parser.add_argument("--with-ai", action="store_true", help="Setup AI models")
+    parser.add_argument("--with-ai", action="store_true", help="Setup LLM models")
     parser.add_argument("--quick", action="store_true", help="Quick setup without AI")
     args = parser.parse_args()
     
@@ -114,10 +126,10 @@ def main():
     # Check system requirements
     check_system_requirements()
     
-    # Setup AI models if requested
+    # Setup LLM models if requested
     if args.with_ai and not args.quick:
-        if not setup_ai_models():
-            print("Warning: AI models not fully configured")
+        if not setup_llm_models():
+            print("Warning: LLM models not fully configured")
     
     print()
     if success:
@@ -127,7 +139,7 @@ def main():
         print()
         print("You can now run security analysis:")
         print("  python analyze.py .                    # Basic analysis")
-        print("  python analyze.py . --enable-ai       # With AI validation")
+        print("  python analyze.py . --enable-ai       # With LLM validation")
         print("  python analyze.py . --quick           # Quick scan")
         print()
         print("For help:")

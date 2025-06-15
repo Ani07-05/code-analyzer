@@ -8,7 +8,7 @@ Advanced vulnerability detection with LLM-powered analysis using local Qwen2.5-C
 ```bash
 git clone <repository-url>
 cd code-security-analyzer
-python setup.py --with-ai  # Setup with AI models
+python setup.py --with-ai  # Setup with LLM models
 ```
 
 ### 2. Run Analysis
@@ -16,10 +16,10 @@ python setup.py --with-ai  # Setup with AI models
 # Basic analysis (fast)
 python analyze.py /path/to/your/project
 
-# With AI validation (recommended)
+# With LLM validation (recommended)
 python analyze.py /path/to/your/project --enable-ai
 
-# Quick scan without AI
+# Quick scan without LLM
 python analyze.py /path/to/your/project --quick
 ```
 
@@ -76,7 +76,7 @@ python setup.py --with-ai
 # Analyze current directory
 python analyze.py .
 
-# Analyze specific project with AI
+# Analyze specific project with LLM
 python analyze.py /path/to/project --enable-ai
 
 # Custom output file
@@ -85,12 +85,12 @@ python analyze.py . --output my_security_report.html
 # JSON output for CI/CD integration
 python analyze.py . --format json --output results.json
 
-# Quick scan (no AI, faster)
+# Quick scan (no LLM, faster)
 python analyze.py . --quick
 
 # Run specific phases
 python analyze.py . --phases 1  # Entry detection only
-python analyze.py . --phases 3  # AI validation only
+python analyze.py . --phases 3  # LLM validation only
 ```
 
 ### Output Formats
@@ -101,13 +101,13 @@ python analyze.py . --phases 3  # AI validation only
 ## 🔧 Configuration
 
 ### GPU Requirements
-- **8GB+ VRAM**: Full AI processing with 13B models
-- **4GB+ VRAM**: Hybrid CPU+GPU processing with 7B models  
-- **<4GB VRAM**: CPU-only processing (slower but functional)
+- **20GB+ VRAM**: Full LLM processing with 32B models
+- **6GB+ VRAM**: Standard processing with 7B models  
+- **<6GB VRAM**: Lightweight processing with 1.5B models
 
 ### Performance Optimization
 - Enable GPU acceleration for faster analysis
-- Use `--quick` mode for rapid scans
+- Use `--quick` mode for rapid scans without LLM
 - Run specific phases with `--phases` for targeted analysis
 
 ## 📊 Sample Output
@@ -126,11 +126,11 @@ High Risk: 3
 Moderate Risk: 2
 Low Risk: 3
 
-Phase 3: AI Validation with CodeLlama 7B
+Phase 3: LLM Validation with Qwen2.5-Coder
 ----------------------------------------
-Loading CodeLlama 7B model...
-Analyzing 3 high-risk entry points with AI...
-AI validation completed
+Loading Qwen2.5-Coder model...
+Analyzing 3 high-risk entry points with LLM...
+LLM validation completed
 
 ======================================================================
 ANALYSIS COMPLETE
@@ -177,7 +177,7 @@ Report Generated: security_report_20231215_143022.html
 ### Local Processing
 - All analysis runs on your machine
 - No code sent to external services
-- AI models run locally with your data
+- LLM models run locally with your data
 
 ### Data Handling
 - No persistent storage of analyzed code
@@ -204,7 +204,7 @@ python setup.py  # Re-run setup
 **Model Loading Issues**
 ```bash
 # Check model availability
-ls models/codellama-7b/
+ls ~/.cache/huggingface/transformers/
 # Download if missing
 python scripts/model_management/download_models.py
 ```
@@ -219,7 +219,7 @@ python scripts/model_management/download_models.py
 
 ### Upcoming Features
 - **Multi-language Support**: Java, C#, Go, Rust
-- **Advanced AI Models**: GPT integration, custom models
+- **Advanced LLM Models**: GPT integration, custom models
 - **Team Dashboard**: Central vulnerability tracking
 - **Compliance Reporting**: SOC2, PCI-DSS, HIPAA mapping
 - **Auto-remediation**: Automatic security fix generation

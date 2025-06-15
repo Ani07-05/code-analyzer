@@ -63,13 +63,13 @@ Examples:
     parser.add_argument(
         '--enable-ai',
         action='store_true',
-        help='Enable AI validation using local CodeLlama model'
+        help='Enable LLM validation using local Qwen2.5-Coder model'
     )
     
     parser.add_argument(
         '--quick',
         action='store_true', 
-        help='Quick scan without AI analysis (faster)'
+        help='Quick scan without LLM analysis (faster)'
     )
     
     parser.add_argument(
@@ -89,7 +89,7 @@ Examples:
         '--phases',
         choices=['1', '2', '3', '4', 'all'],
         default='all',
-        help='Phases to run: 1=Entry Detection, 2=RAG Analysis, 3=AI Validation, 4=Report'
+        help='Phases to run: 1=Entry Detection, 2=RAG Analysis, 3=LLM Validation, 4=Report'
     )
     
     return parser
@@ -104,7 +104,7 @@ async def run_complete_analysis(target_path, options):
         from report_generator.html_generator import HTMLReportGenerator
         
         print(f"Target: {target_path}")
-        print(f"AI Analysis: {'Enabled' if options.enable_ai else 'Disabled'}")
+        print(f"LLM Analysis: {'Enabled' if options.enable_ai else 'Disabled'}")
         print(f"Output Format: {options.format}")
         print()
         
@@ -218,7 +218,7 @@ async def run_complete_analysis(target_path, options):
                     "moderate_risk": entry_report.moderate_risk_count,
                     "low_risk": entry_report.low_risk_count,
                     "frameworks": entry_report.frameworks_detected,
-                    "ai_enabled": options.enable_ai
+                    "llm_enabled": options.enable_ai
                 }
                 
                 json_file = options.output.replace('.html', '.json') if options.output.endswith('.html') else options.output
@@ -238,7 +238,7 @@ async def run_complete_analysis(target_path, options):
                     f.write(f"High Risk: {entry_report.high_risk_count}\\n")
                     f.write(f"Moderate Risk: {entry_report.moderate_risk_count}\\n")
                     f.write(f"Low Risk: {entry_report.low_risk_count}\\n")
-                    f.write(f"AI Analysis: {'Enabled' if options.enable_ai else 'Disabled'}\\n")
+                    f.write(f"LLM Analysis: {'Enabled' if options.enable_ai else 'Disabled'}\\n")
                 print(f"Text Report: {text_file}")
         
         return {
